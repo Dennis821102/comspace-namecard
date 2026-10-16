@@ -8,24 +8,25 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* 色票對齊 shop.everan-sw.com/s/comspace1013 */
     :root {
-      --ink: #0B1322;
-      --card: #15203A;
-      --card-2: #101A2E;
-      --line: #2B3A57;
-      --brass: #C8A253;
-      --brass-lt: #E3C77F;
-      --brass-dk: #8A6E2E;
-      --text: #EEF1F6;
-      --text-dim: #94A0B4;
+      --bg: #FAF8F4;
+      --band: #F3E6D6;
+      --chip: #F4ECD7;
+      --line: rgba(87,70,50,.16);
+      --ac: #946A3C;
+      --ac-d: #7A5530;
+      --ink: #3B2411;
+      --tx: #574632;
+      --mu: #6C5F53;
+      --foot: #3A2A1E;
+      --foot-t: #EADFCE;
     }
 
     body {
-      font-family: "PingFang TC", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(130% 80% at 50% -10%, #1A2846 0%, rgba(11,19,34,0) 62%),
-        var(--ink);
-      color: var(--text);
+      font-family: "Noto Sans TC", "PingFang TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--tx);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -36,107 +37,107 @@
     .card {
       width: 100%;
       max-width: 350px;
-      background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
+      background: #fff;
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 22px 54px rgba(0,0,0,0.5);
+      box-shadow: 0 12px 34px rgba(87,70,50,0.12);
     }
 
-    /* 品牌條 */
     .brandbar {
-      padding: 22px 24px 18px;
+      background: var(--band);
+      padding: 20px 24px 16px;
       text-align: center;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, #0E1830 0%, #15203A 100%);
     }
     .wordmark {
-      font-size: 26px; font-weight: 700; letter-spacing: 0.26em;
-      color: var(--brass); text-indent: 0.26em;
+      font-size: 25px; font-weight: 700; letter-spacing: 0.24em;
+      color: var(--ink); text-indent: 0.24em;
     }
     .brandbar .cn {
-      margin-top: 8px;
-      font-size: 13px; color: var(--text-dim); letter-spacing: 0.14em; text-indent: 0.14em;
+      margin-top: 7px;
+      font-size: 12px; color: var(--mu); letter-spacing: 0.14em; text-indent: 0.14em;
     }
 
-    /* 主視覺 */
     .shot { width: 100%; display: block; }
 
-    /* 姓名 */
-    .who { padding: 20px 24px 0; text-align: center; }
-    .who .name { font-size: 26px; font-weight: 700; letter-spacing: 0.1em; text-indent: 0.1em; }
-    .who .name em { font-style: normal; font-weight: 400; font-size: 20px; margin-left: 8px; color: var(--brass-lt); }
-    .who .role { margin-top: 7px; font-size: 13px; color: var(--text-dim); letter-spacing: 0.04em; }
-
-    .rule { display: flex; align-items: center; gap: 10px; margin: 16px 24px 0; }
-    .rule span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--brass-dk), transparent); }
-    .rule i { width: 5px; height: 5px; background: var(--brass); transform: rotate(45deg); }
+    /* 姓名色帶 */
+    .band {
+      background: var(--foot);
+      color: #fff;
+      padding: 16px 20px 18px;
+    }
+    .band .name { font-size: 24px; font-weight: 700; letter-spacing: 0.08em; }
+    .band .name em { font-style: normal; font-weight: 400; font-size: 19px; margin-left: 8px; color: var(--foot-t); }
+    .band .role { margin-top: 6px; font-size: 12px; color: var(--foot-t); letter-spacing: 0.04em; opacity: .9; }
 
     .slogan {
-      margin-top: 14px; text-align: center;
-      font-size: 15px; font-weight: 700; color: var(--brass); letter-spacing: 0.06em;
+      padding: 16px 20px 0;
+      text-align: center;
+      font-size: 15px; font-weight: 700; color: var(--ac-d); letter-spacing: 0.06em;
     }
     .slogan small {
       display: block; margin-top: 6px;
-      font-size: 11px; font-weight: 400; color: var(--text-dim); letter-spacing: 0.08em;
+      font-size: 10px; font-weight: 400; color: var(--mu); letter-spacing: 0.1em;
     }
 
-    /* 資訊列 */
-    .info { padding: 18px 24px 4px; }
+    .info { padding: 16px 20px 4px; }
     .info-row {
       display: flex; align-items: baseline; gap: 12px;
       padding: 9px 0;
-      border-bottom: 1px dashed rgba(138,110,46,0.3);
+      border-bottom: 1px solid var(--line);
       font-size: 14px;
     }
     .info-row:last-child { border-bottom: none; }
-    .info-row b { color: var(--brass-dk); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 46px; }
-    .info-row span { color: var(--text); }
+    .info-row b { color: var(--ac); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; min-width: 48px; }
+    .info-row span { color: var(--ink); }
 
-    /* 按鈕 */
-    .actions { padding: 16px 24px 26px; display: flex; flex-direction: column; gap: 10px; }
+    .actions { padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 10px; }
     .btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid var(--brass-dk);
-      border-radius: 12px;
-      background: transparent;
-      color: var(--text);
-      font-size: 15px; font-weight: 600; letter-spacing: 0.04em;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 15px; font-weight: 600; letter-spacing: 0.03em;
       text-decoration: none;
       cursor: pointer;
       transition: background .18s, border-color .18s;
     }
-    .btn:hover { background: rgba(200,162,83,0.1); border-color: var(--brass); }
+    .btn:hover { background: var(--chip); border-color: var(--ac); }
     .btn.soon {
       border-style: dashed;
-      color: #6F7C92;
+      color: #A89A8C;
+      background: transparent;
       cursor: not-allowed;
       pointer-events: none;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--brass-lt), var(--brass));
-      border-color: var(--brass-lt);
-      color: #15203A;
+      background: var(--ac);
+      border-color: var(--ac);
+      color: #fff;
       font-size: 16px; font-weight: 700;
       padding: 16px;
-      box-shadow: 0 8px 22px rgba(200,162,83,0.2);
+      box-shadow: 0 8px 20px rgba(148,106,60,0.22);
     }
-    .btn-primary:hover { background: linear-gradient(135deg, #F0DBA0, var(--brass-lt)); }
-    .btn-primary:disabled { background: #222C44; border-color: #222C44; color: #6F7C92; box-shadow: none; cursor: not-allowed; }
+    .btn-primary:hover { background: var(--ac-d); border-color: var(--ac-d); }
+    .btn-primary:disabled {
+      background: #E8E2D8; border-color: #E8E2D8; color: #A89A8C;
+      box-shadow: none; cursor: not-allowed;
+    }
 
     .status {
       max-width: 350px; width: 100%;
       margin-top: 12px;
-      font-size: 13px; color: var(--text-dim); text-align: center; min-height: 20px;
+      font-size: 13px; color: var(--mu); text-align: center; min-height: 20px;
     }
-    .status.error { color: #E06A55; }
-    .status.success { color: #76BE7A; }
+    .status.error { color: #A8432C; }
+    .status.success { color: #2B7A6E; }
 
     .foot {
       margin-top: 20px;
-      font-size: 10px; letter-spacing: 0.3em; color: #4C5A72; text-indent: 0.3em;
+      font-size: 10px; letter-spacing: 0.28em; color: #A89A8C; text-indent: 0.28em;
     }
   </style>
 </head>
@@ -149,12 +150,10 @@
 
     <img class="shot" src="img/hero-lounge.jpg" alt="寬憶行銷商務中心">
 
-    <div class="who">
+    <div class="band">
       <div class="name">張立群<em>John</em></div>
       <div class="role">寬憶行銷商務中心</div>
     </div>
-
-    <div class="rule"><span></span><i></i><span></span></div>
 
     <div class="slogan">
       創業夢想　即刻啟航
@@ -174,6 +173,7 @@
       <a class="btn" href="tel:0922780549"><span>立即致電</span>📞</a>
       <a class="btn" href="https://line.me/ti/p/~0922780549" target="_blank" rel="noopener"><span>立即加 LINE 聊</span>💬</a>
       <a class="btn" href="mailto:service@comspace.com.tw"><span>寄送 Email</span>✉️</a>
+      <a class="btn" href="img/brand-video.mp4" target="_blank" rel="noopener"><span>觀看品牌影片</span>▶</a>
       <span class="btn soon">官方網站　即將上線</span>
       <button class="btn btn-primary" id="btnShare" disabled>載入中...</button>
     </div>
@@ -188,7 +188,7 @@
     // =============================================
     const LIFF_ID = 'YOUR_LIFF_ID';
 
-    // Flex Message 的圖片必須是 https 絕對網址
+    // Flex Message 的圖片／影片必須是 https 絕對網址
     const BASE = 'https://dennis821102.github.io/comspace-namecard';
 
     const LINKS = {
@@ -196,39 +196,42 @@
       telShop: 'tel:0333020400',
       line:    'https://line.me/ti/p/~0922780549',
       mail:    'mailto:service@comspace.com.tw',
+      video:   BASE + '/img/brand-video.mp4',
       mapArt:  'https://maps.google.com/?q=' + encodeURIComponent('桃園市藝文一街86-3號'),
       mapZhon: 'https://maps.google.com/?q=' + encodeURIComponent('桃園市正光路423-9號')
-      // web: 官網待上線，屆時在這裡補網址，並把第二張卡片的「官方網站」改回可點按鈕
+      // web: 官網待上線，屆時補網址並把 btnSoon 換成 btn
     };
 
-    const BRASS = '#C8A253';
-    const BRASS_DK = '#8A6E2E';
-    const CARD = '#15203A';
-    const TEXT = '#EEF1F6';
-    const DIM = '#94A0B4';
+    // 色票同 landing page
+    const AC = '#946A3C';
+    const INK = '#3B2411';
+    const MU = '#6C5F53';
+    const BG = '#FAF8F4';
+    const BAND = '#F3E6D6';
+    const FOOT = '#3A2A1E';
+    const SEP = '#E3D7C6';
 
-    // 可點按鈕（白金配色，文字色 Flex 不能自訂，故主鈕深底白字、次鈕淺底深字）
     function btn(label, uri, primary) {
       return {
         type: 'button',
         style: primary ? 'primary' : 'secondary',
         height: 'sm',
-        color: primary ? '#8A6E2E' : '#E8E4DA',
+        color: primary ? AC : '#FFFFFF',
         action: { type: 'uri', label: label, uri: uri }
       };
     }
 
-    // 佔位按鈕：外觀像按鈕但沒有 action，點了不會有反應（官網尚未提供網址）
+    // 佔位按鈕：外觀像按鈕但沒有 action（官網尚未提供網址）
     function btnSoon(label) {
       return {
         type: 'box',
         layout: 'vertical',
         cornerRadius: '6px',
-        borderColor: '#3A4660',
+        borderColor: '#DCCBB1',
         borderWidth: '1px',
         paddingAll: '11px',
         contents: [
-          { type: 'text', text: label, size: 'sm', weight: 'bold', color: '#6F7C92', align: 'center' }
+          { type: 'text', text: label, size: 'sm', weight: 'bold', color: '#A89A8C', align: 'center' }
         ]
       };
     }
@@ -239,8 +242,8 @@
         layout: 'baseline',
         spacing: 'sm',
         contents: [
-          { type: 'text', text: label, size: 'xxs', color: BRASS_DK, flex: 3, weight: 'bold' },
-          { type: 'text', text: value, size: 'sm', color: TEXT, flex: 9, wrap: true }
+          { type: 'text', text: label, size: 'xxs', color: AC, flex: 3, weight: 'bold' },
+          { type: 'text', text: value, size: 'sm', color: INK, flex: 9, wrap: true }
         ]
       };
     }
@@ -251,8 +254,8 @@
         layout: 'baseline',
         spacing: 'sm',
         contents: [
-          { type: 'text', text: '◆', size: 'xxs', color: BRASS, flex: 1 },
-          { type: 'text', text: text, size: 'sm', color: '#D7DCE5', flex: 12, wrap: true }
+          { type: 'text', text: '◆', size: 'xxs', color: AC, flex: 1 },
+          { type: 'text', text: text, size: 'sm', color: '#574632', flex: 12, wrap: true }
         ]
       };
     }
@@ -262,17 +265,17 @@
       type: 'bubble',
       size: 'mega',
       styles: {
-        header: { backgroundColor: '#0E1830' },
-        body: { backgroundColor: CARD },
-        footer: { backgroundColor: CARD }
+        header: { backgroundColor: BAND },
+        body: { backgroundColor: BG },
+        footer: { backgroundColor: BG }
       },
       header: {
         type: 'box',
         layout: 'vertical',
-        paddingAll: '18px',
+        paddingAll: '16px',
         contents: [
-          { type: 'text', text: 'C O M S P A C E', size: 'lg', weight: 'bold', color: BRASS, align: 'center' },
-          { type: 'text', text: '寬憶行銷商務中心', size: 'xs', color: DIM, align: 'center', margin: 'sm' }
+          { type: 'text', text: 'C O M S P A C E', size: 'lg', weight: 'bold', color: INK, align: 'center' },
+          { type: 'text', text: '寬憶行銷商務中心', size: 'xs', color: MU, align: 'center', margin: 'sm' }
         ]
       },
       hero: {
@@ -293,12 +296,12 @@
             layout: 'baseline',
             spacing: 'sm',
             contents: [
-              { type: 'text', text: '張立群', size: 'xl', weight: 'bold', color: TEXT, flex: 0 },
-              { type: 'text', text: 'John', size: 'md', color: '#E3C77F', flex: 0 }
+              { type: 'text', text: '張立群', size: 'xl', weight: 'bold', color: INK, flex: 0 },
+              { type: 'text', text: 'John', size: 'md', color: AC, flex: 0 }
             ]
           },
-          { type: 'text', text: '創業夢想　即刻啟航', size: 'xs', color: BRASS, margin: 'sm' },
-          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          { type: 'text', text: '創業夢想　即刻啟航', size: 'xs', color: AC, margin: 'sm' },
+          { type: 'separator', color: SEP, margin: 'lg' },
           {
             type: 'box',
             layout: 'vertical',
@@ -306,7 +309,6 @@
             spacing: 'sm',
             contents: [
               infoRow('手機', '0922-780-549'),
-              infoRow('LINE', '同手機號'),
               infoRow('電話', '03-302-0400'),
               infoRow('信箱', 'service@comspace.com.tw')
             ]
@@ -326,20 +328,21 @@
       }
     };
 
-    // ---------- 第二張：服務項目 ----------
+    // ---------- 第二張：服務項目（主視覺為品牌影片封面）----------
     const bubbleService = {
       type: 'bubble',
       size: 'mega',
       styles: {
-        body: { backgroundColor: CARD },
-        footer: { backgroundColor: CARD }
+        body: { backgroundColor: BG },
+        footer: { backgroundColor: BG }
       },
       hero: {
         type: 'image',
-        url: BASE + '/img/hero-office.jpg',
+        url: BASE + '/img/video-cover-wide.jpg',
         size: 'full',
-        aspectRatio: '20:13',
-        aspectMode: 'cover'
+        aspectRatio: '4:3',
+        aspectMode: 'cover',
+        action: { type: 'uri', label: '播放品牌影片', uri: LINKS.video }
       },
       body: {
         type: 'box',
@@ -347,20 +350,20 @@
         paddingAll: '20px',
         spacing: 'sm',
         contents: [
-          { type: 'text', text: '一站式辦公服務', size: 'lg', weight: 'bold', color: BRASS, align: 'center' },
-          { type: 'text', text: '空間　登記　記帳　設立　一次搞定', size: 'xs', color: DIM, align: 'center', wrap: true, margin: 'sm' },
-          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          { type: 'text', text: '一站式辦公服務', size: 'lg', weight: 'bold', color: AC, align: 'center' },
+          { type: 'text', text: '空間　登記　記帳　設立', size: 'xs', color: MU, align: 'center', margin: 'sm' },
+          { type: 'separator', color: SEP, margin: 'lg' },
           {
             type: 'box',
             layout: 'vertical',
             margin: 'lg',
             spacing: 'sm',
             contents: [
-              bullet('小型辦公室租賃　2-5 人獨立空間'),
-              bullet('商辦地址租賃　公司營業登記'),
-              bullet('會議室租借　2-40 人場地'),
+              bullet('小型辦公室　2-5 人獨立空間'),
+              bullet('商辦地址租賃　公司登記'),
+              bullet('會議室租借　2-40 人'),
               bullet('會計記帳報稅　駐點會計師'),
-              bullet('代辦公司設立　名稱預查到立案')
+              bullet('代辦公司設立登記')
             ]
           }
         ]
@@ -383,8 +386,8 @@
       type: 'bubble',
       size: 'mega',
       styles: {
-        body: { backgroundColor: CARD },
-        footer: { backgroundColor: CARD }
+        body: { backgroundColor: BG },
+        footer: { backgroundColor: BG }
       },
       hero: {
         type: 'image',
@@ -399,16 +402,16 @@
         paddingAll: '20px',
         spacing: 'sm',
         contents: [
-          { type: 'text', text: '方案一覽', size: 'lg', weight: 'bold', color: TEXT, align: 'center' },
-          { type: 'text', text: '以下為未稅價　實際依空間與需求報價', size: 'xxs', color: DIM, align: 'center', wrap: true, margin: 'sm' },
-          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          { type: 'text', text: '方案一覽', size: 'lg', weight: 'bold', color: INK, align: 'center' },
+          { type: 'text', text: '以下未稅　實際依需求報價', size: 'xxs', color: MU, align: 'center', margin: 'sm' },
+          { type: 'separator', color: SEP, margin: 'lg' },
           {
             type: 'box',
             layout: 'vertical',
             margin: 'lg',
             spacing: 'sm',
             contents: [
-              infoRow('小型辦公室', 'NT$15,000 - 22,000 / 月'),
+              infoRow('辦公室', 'NT$15,000 - 22,000 / 月'),
               infoRow('地址登記', 'NT$1,800 / 月'),
               infoRow('會議室', 'NT$1,000 起 / 小時'),
               infoRow('公司設立', 'NT$10,000 一次'),
@@ -433,8 +436,8 @@
       type: 'bubble',
       size: 'mega',
       styles: {
-        body: { backgroundColor: CARD },
-        footer: { backgroundColor: CARD }
+        body: { backgroundColor: BG },
+        footer: { backgroundColor: BG }
       },
       hero: {
         type: 'image',
@@ -449,18 +452,18 @@
         paddingAll: '20px',
         spacing: 'sm',
         contents: [
-          { type: 'text', text: '黃金門牌　優質地段', size: 'lg', weight: 'bold', color: BRASS, align: 'center' },
-          { type: 'text', text: '藝文特區與中路特區　捷運 G11 步行 3 分鐘', size: 'xxs', color: DIM, align: 'center', wrap: true, margin: 'sm' },
-          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          { type: 'text', text: '黃金門牌　優質地段', size: 'lg', weight: 'bold', color: AC, align: 'center' },
+          { type: 'text', text: '藝文特區與中路特區　捷運 G11 步行 3 分鐘', size: 'xxs', color: MU, align: 'center', wrap: true, margin: 'sm' },
+          { type: 'separator', color: SEP, margin: 'lg' },
           {
             type: 'box',
             layout: 'vertical',
             margin: 'lg',
             spacing: 'sm',
             contents: [
-              infoRow('藝文館', '桃園市桃園區藝文一街 86-3 號 12 樓'),
-              infoRow('中路館', '桃園市桃園區正光路 423-9 號 3 樓'),
-              infoRow('電話', '03-302-0400')
+              infoRow('藝文館', '藝文一街 86-3 號 12 樓'),
+              infoRow('中路館', '正光路 423-9 號 3 樓'),
+              infoRow('總機', '03-302-0400')
             ]
           }
         ]
@@ -478,6 +481,50 @@
       }
     };
 
+    // ---------- 品牌影片（必須獨立成一則訊息）----------
+    // LINE 規定：video 只能放 hero，且該 bubble 不能是 carousel 的子元素。
+    const bubbleVideo = {
+      type: 'bubble',
+      size: 'mega',
+      styles: {
+        body: { backgroundColor: BG },
+        footer: { backgroundColor: BG }
+      },
+      hero: {
+        type: 'video',
+        url: LINKS.video,
+        previewUrl: BASE + '/img/video-preview.jpg',
+        aspectRatio: '9:16',
+        altContent: {
+          type: 'image',
+          url: BASE + '/img/video-preview.jpg',
+          size: 'full',
+          aspectRatio: '9:16',
+          aspectMode: 'cover'
+        }
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        paddingAll: '20px',
+        spacing: 'sm',
+        contents: [
+          { type: 'text', text: '寬憶品牌影片', size: 'lg', weight: 'bold', color: INK, align: 'center' },
+          { type: 'text', text: '看空間　看服務　看團隊', size: 'xs', color: MU, align: 'center' }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        paddingAll: '16px',
+        contents: [
+          btn('預約參觀', LINKS.tel, true),
+          btn('LINE 洽詢', LINKS.line)
+        ]
+      }
+    };
+
     const flexMessage = {
       type: 'flex',
       altText: '張立群 John｜寬憶行銷商務中心　電子名片',
@@ -485,6 +532,12 @@
         type: 'carousel',
         contents: [bubbleProfile, bubbleService, bubblePlan, bubbleLocation]
       }
+    };
+
+    const videoMessage = {
+      type: 'flex',
+      altText: '寬憶行銷商務中心　品牌影片',
+      contents: bubbleVideo
     };
 
     // ---------- LIFF ----------
@@ -532,7 +585,7 @@
       try {
         btnShare.disabled = true;
         setStatus('開啟分享清單...');
-        const result = await liff.shareTargetPicker([flexMessage]);
+        const result = await liff.shareTargetPicker([flexMessage, videoMessage]);
         if (result) {
           setStatus('名片已送出', 'success');
         } else {
