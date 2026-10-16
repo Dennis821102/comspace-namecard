@@ -236,8 +236,9 @@
       };
     }
 
-    function infoRow(label, value) {
-      return {
+    // uri 有值時整列可點（地址列點了開導航）
+    function infoRow(label, value, uri) {
+      const row = {
         type: 'box',
         layout: 'baseline',
         spacing: 'sm',
@@ -246,6 +247,8 @@
           { type: 'text', text: value, size: 'sm', color: INK, flex: 9, wrap: true }
         ]
       };
+      if (uri) row.action = { type: 'uri', label: label, uri: uri };
+      return row;
     }
 
     function bullet(text) {
@@ -309,8 +312,10 @@
             spacing: 'sm',
             contents: [
               infoRow('手機', '0922-780-549'),
-              infoRow('電話', '03-302-0400'),
-              infoRow('信箱', 'service@comspace.com.tw')
+              infoRow('信箱', 'service@comspace.com.tw'),
+              infoRow('藝文館', '藝文一街 86-3 號 12 樓', LINKS.mapArt),
+              infoRow('中路館', '正光路 423-9 號 3 樓', LINKS.mapZhon),
+              { type: 'text', text: '點地址可開啟導航', size: 'xxs', color: MU, align: 'end' }
             ]
           }
         ]
@@ -430,104 +435,14 @@
       }
     };
 
-    // ---------- 第四張：據點 ----------
-    const bubbleLocation = {
-      type: 'bubble',
-      size: 'mega',
-      styles: {
-        body: { backgroundColor: BG },
-        footer: { backgroundColor: BG }
-      },
-      hero: {
-        type: 'image',
-        url: BASE + '/img/hero-building.jpg',
-        size: 'full',
-        aspectRatio: '20:13',
-        aspectMode: 'cover'
-      },
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        paddingAll: '20px',
-        spacing: 'sm',
-        contents: [
-          { type: 'text', text: '黃金門牌　優質地段', size: 'lg', weight: 'bold', color: AC, align: 'center' },
-          { type: 'text', text: '藝文特區與中路特區　捷運 G11 步行 3 分鐘', size: 'xxs', color: MU, align: 'center', wrap: true, margin: 'sm' },
-          { type: 'separator', color: SEP, margin: 'lg' },
-          {
-            type: 'box',
-            layout: 'vertical',
-            margin: 'lg',
-            spacing: 'sm',
-            contents: [
-              infoRow('藝文館', '藝文一街 86-3 號 12 樓'),
-              infoRow('中路館', '正光路 423-9 號 3 樓'),
-              infoRow('總機', '03-302-0400')
-            ]
-          }
-        ]
-      },
-      footer: {
-        type: 'box',
-        layout: 'vertical',
-        spacing: 'sm',
-        paddingAll: '16px',
-        contents: [
-          btn('導航　藝文館', LINKS.mapArt, true),
-          btn('導航　中路館', LINKS.mapZhon)
-        ]
-      }
-    };
-
-    // ---------- 品牌影片（必須獨立成一則訊息）----------
-    // LINE 規定：video 只能放 hero，且該 bubble 不能是 carousel 的子元素。
-    const bubbleVideo = {
-      type: 'bubble',
-      size: 'mega',
-      styles: {
-        body: { backgroundColor: BG },
-        footer: { backgroundColor: BG }
-      },
-      hero: {
-        type: 'video',
-        url: LINKS.video,
-        previewUrl: BASE + '/img/video-preview.jpg',
-        aspectRatio: '9:16',
-        altContent: {
-          type: 'image',
-          url: BASE + '/img/video-preview.jpg',
-          size: 'full',
-          aspectRatio: '9:16',
-          aspectMode: 'cover'
-        }
-      },
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        paddingAll: '20px',
-        spacing: 'sm',
-        contents: [
-          { type: 'text', text: '寬憶品牌影片', size: 'lg', weight: 'bold', color: INK, align: 'center' },
-          { type: 'text', text: '看空間　看服務　看團隊', size: 'xs', color: MU, align: 'center' }
-        ]
-      }
-    };
-
     const flexMessage = {
       type: 'flex',
       altText: '張立群 John｜寬憶行銷商務中心　電子名片',
       contents: {
         type: 'carousel',
-        contents: [bubbleProfile, bubbleService, bubblePlan, bubbleLocation]
+        contents: [bubbleProfile, bubbleService, bubblePlan]
       }
     };
-
-    const videoMessage = {
-      type: 'flex',
-      altText: '寬憶行銷商務中心　品牌影片',
-      contents: bubbleVideo
-    };
-
     // ---------- LIFF ----------
     const btnShare = document.getElementById('btnShare');
     const statusEl = document.getElementById('status');
@@ -573,7 +488,7 @@
       try {
         btnShare.disabled = true;
         setStatus('開啟分享清單...');
-        const result = await liff.shareTargetPicker([flexMessage, videoMessage]);
+        const result = await liff.shareTargetPicker([flexMessage]);
         if (result) {
           setStatus('名片已送出', 'success');
         } else {
