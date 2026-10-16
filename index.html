@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>電子名片 - 張立群 John｜寬憶行銷商務中心</title>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #0B1322;
+      --card: #15203A;
+      --card-2: #101A2E;
+      --line: #2B3A57;
+      --brass: #C8A253;
+      --brass-lt: #E3C77F;
+      --brass-dk: #8A6E2E;
+      --text: #EEF1F6;
+      --text-dim: #94A0B4;
+    }
+
+    body {
+      font-family: "PingFang TC", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(130% 80% at 50% -10%, #1A2846 0%, rgba(11,19,34,0) 62%),
+        var(--ink);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 26px 18px 44px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 350px;
+      background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 22px 54px rgba(0,0,0,0.5);
+    }
+
+    /* 品牌條 */
+    .brandbar {
+      padding: 22px 24px 18px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #0E1830 0%, #15203A 100%);
+    }
+    .wordmark {
+      font-size: 26px; font-weight: 700; letter-spacing: 0.26em;
+      color: var(--brass); text-indent: 0.26em;
+    }
+    .brandbar .cn {
+      margin-top: 8px;
+      font-size: 13px; color: var(--text-dim); letter-spacing: 0.14em; text-indent: 0.14em;
+    }
+
+    /* 主視覺 */
+    .shot { width: 100%; display: block; }
+
+    /* 姓名 */
+    .who { padding: 20px 24px 0; text-align: center; }
+    .who .name { font-size: 26px; font-weight: 700; letter-spacing: 0.1em; text-indent: 0.1em; }
+    .who .name em { font-style: normal; font-weight: 400; font-size: 20px; margin-left: 8px; color: var(--brass-lt); }
+    .who .role { margin-top: 7px; font-size: 13px; color: var(--text-dim); letter-spacing: 0.04em; }
+
+    .rule { display: flex; align-items: center; gap: 10px; margin: 16px 24px 0; }
+    .rule span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--brass-dk), transparent); }
+    .rule i { width: 5px; height: 5px; background: var(--brass); transform: rotate(45deg); }
+
+    .slogan {
+      margin-top: 14px; text-align: center;
+      font-size: 15px; font-weight: 700; color: var(--brass); letter-spacing: 0.06em;
+    }
+    .slogan small {
+      display: block; margin-top: 6px;
+      font-size: 11px; font-weight: 400; color: var(--text-dim); letter-spacing: 0.08em;
+    }
+
+    /* 資訊列 */
+    .info { padding: 18px 24px 4px; }
+    .info-row {
+      display: flex; align-items: baseline; gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px dashed rgba(138,110,46,0.3);
+      font-size: 14px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row b { color: var(--brass-dk); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 46px; }
+    .info-row span { color: var(--text); }
+
+    /* 按鈕 */
+    .actions { padding: 16px 24px 26px; display: flex; flex-direction: column; gap: 10px; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--brass-dk);
+      border-radius: 12px;
+      background: transparent;
+      color: var(--text);
+      font-size: 15px; font-weight: 600; letter-spacing: 0.04em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .18s, border-color .18s;
+    }
+    .btn:hover { background: rgba(200,162,83,0.1); border-color: var(--brass); }
+    .btn.soon {
+      border-style: dashed;
+      color: #6F7C92;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brass-lt), var(--brass));
+      border-color: var(--brass-lt);
+      color: #15203A;
+      font-size: 16px; font-weight: 700;
+      padding: 16px;
+      box-shadow: 0 8px 22px rgba(200,162,83,0.2);
+    }
+    .btn-primary:hover { background: linear-gradient(135deg, #F0DBA0, var(--brass-lt)); }
+    .btn-primary:disabled { background: #222C44; border-color: #222C44; color: #6F7C92; box-shadow: none; cursor: not-allowed; }
+
+    .status {
+      max-width: 350px; width: 100%;
+      margin-top: 12px;
+      font-size: 13px; color: var(--text-dim); text-align: center; min-height: 20px;
+    }
+    .status.error { color: #E06A55; }
+    .status.success { color: #76BE7A; }
+
+    .foot {
+      margin-top: 20px;
+      font-size: 10px; letter-spacing: 0.3em; color: #4C5A72; text-indent: 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brandbar">
+      <div class="wordmark">COMSPACE</div>
+      <div class="cn">寬憶行銷商務中心</div>
+    </div>
+
+    <img class="shot" src="img/hero-lounge.jpg" alt="寬憶行銷商務中心">
+
+    <div class="who">
+      <div class="name">張立群<em>John</em></div>
+      <div class="role">寬憶行銷商務中心</div>
+    </div>
+
+    <div class="rule"><span></span><i></i><span></span></div>
+
+    <div class="slogan">
+      創業夢想　即刻啟航
+      <small>COMSPACE, COME BUSINESS!</small>
+    </div>
+
+    <div class="info">
+      <div class="info-row"><b>手機</b><span>0922-780-549</span></div>
+      <div class="info-row"><b>LINE</b><span>0922780549（同手機）</span></div>
+      <div class="info-row"><b>電話</b><span>03-302-0400</span></div>
+      <div class="info-row"><b>信箱</b><span>service@comspace.com.tw</span></div>
+      <div class="info-row"><b>藝文館</b><span>桃園市桃園區藝文一街 86-3 號 12 樓</span></div>
+      <div class="info-row"><b>中路館</b><span>桃園市桃園區正光路 423-9 號 3 樓</span></div>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="tel:0922780549"><span>立即致電</span>📞</a>
+      <a class="btn" href="https://line.me/ti/p/~0922780549" target="_blank" rel="noopener"><span>立即加 LINE 聊</span>💬</a>
+      <a class="btn" href="mailto:service@comspace.com.tw"><span>寄送 Email</span>✉️</a>
+      <span class="btn soon">官方網站　即將上線</span>
+      <button class="btn btn-primary" id="btnShare" disabled>載入中...</button>
+    </div>
+  </div>
+
+  <div class="status" id="status"></div>
+  <div class="foot">COMSPACE BUSINESS CENTER</div>
+
+  <script>
+    // =============================================
+    // 設定區：LIFF ID 建好後填這裡
+    // =============================================
+    const LIFF_ID = 'YOUR_LIFF_ID';
+
+    // Flex Message 的圖片必須是 https 絕對網址
+    const BASE = 'https://dennis821102.github.io/comspace-namecard';
+
+    const LINKS = {
+      tel:     'tel:0922780549',
+      telShop: 'tel:0333020400',
+      line:    'https://line.me/ti/p/~0922780549',
+      mail:    'mailto:service@comspace.com.tw',
+      mapArt:  'https://maps.google.com/?q=' + encodeURIComponent('桃園市藝文一街86-3號'),
+      mapZhon: 'https://maps.google.com/?q=' + encodeURIComponent('桃園市正光路423-9號')
+      // web: 官網待上線，屆時在這裡補網址，並把第二張卡片的「官方網站」改回可點按鈕
+    };
+
+    const BRASS = '#C8A253';
+    const BRASS_DK = '#8A6E2E';
+    const CARD = '#15203A';
+    const TEXT = '#EEF1F6';
+    const DIM = '#94A0B4';
+
+    // 可點按鈕（白金配色，文字色 Flex 不能自訂，故主鈕深底白字、次鈕淺底深字）
+    function btn(label, uri, primary) {
+      return {
+        type: 'button',
+        style: primary ? 'primary' : 'secondary',
+        height: 'sm',
+        color: primary ? '#8A6E2E' : '#E8E4DA',
+        action: { type: 'uri', label: label, uri: uri }
+      };
+    }
+
+    // 佔位按鈕：外觀像按鈕但沒有 action，點了不會有反應（官網尚未提供網址）
+    function btnSoon(label) {
+      return {
+        type: 'box',
+        layout: 'vertical',
+        cornerRadius: '6px',
+        borderColor: '#3A4660',
+        borderWidth: '1px',
+        paddingAll: '11px',
+        contents: [
+          { type: 'text', text: label, size: 'sm', weight: 'bold', color: '#6F7C92', align: 'center' }
+        ]
+      };
+    }
+
+    function infoRow(label, value) {
+      return {
+        type: 'box',
+        layout: 'baseline',
+        spacing: 'sm',
+        contents: [
+          { type: 'text', text: label, size: 'xxs', color: BRASS_DK, flex: 3, weight: 'bold' },
+          { type: 'text', text: value, size: 'sm', color: TEXT, flex: 9, wrap: true }
+        ]
+      };
+    }
+
+    function bullet(text) {
+      return {
+        type: 'box',
+        layout: 'baseline',
+        spacing: 'sm',
+        contents: [
+          { type: 'text', text: '◆', size: 'xxs', color: BRASS, flex: 1 },
+          { type: 'text', text: text, size: 'sm', color: '#D7DCE5', flex: 12, wrap: true }
+        ]
+      };
+    }
+
+    // ---------- 第一張：個人名片 ----------
+    const bubbleProfile = {
+      type: 'bubble',
+      size: 'mega',
+      styles: {
+        header: { backgroundColor: '#0E1830' },
+        body: { backgroundColor: CARD },
+        footer: { backgroundColor: CARD }
+      },
+      header: {
+        type: 'box',
+        layout: 'vertical',
+        paddingAll: '18px',
+        contents: [
+          { type: 'text', text: 'C O M S P A C E', size: 'lg', weight: 'bold', color: BRASS, align: 'center' },
+          { type: 'text', text: '寬憶行銷商務中心', size: 'xs', color: DIM, align: 'center', margin: 'sm' }
+        ]
+      },
+      hero: {
+        type: 'image',
+        url: BASE + '/img/hero-lounge.jpg',
+        size: 'full',
+        aspectRatio: '4:3',
+        aspectMode: 'cover'
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        paddingAll: '20px',
+        spacing: 'md',
+        contents: [
+          {
+            type: 'box',
+            layout: 'baseline',
+            spacing: 'sm',
+            contents: [
+              { type: 'text', text: '張立群', size: 'xl', weight: 'bold', color: TEXT, flex: 0 },
+              { type: 'text', text: 'John', size: 'md', color: '#E3C77F', flex: 0 }
+            ]
+          },
+          { type: 'text', text: '創業夢想　即刻啟航', size: 'xs', color: BRASS, margin: 'sm' },
+          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              infoRow('手機', '0922-780-549'),
+              infoRow('LINE', '同手機號'),
+              infoRow('電話', '03-302-0400'),
+              infoRow('信箱', 'service@comspace.com.tw')
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        paddingAll: '16px',
+        contents: [
+          btn('立即致電', LINKS.tel, true),
+          btn('立即加 LINE 聊', LINKS.line),
+          btn('寄送 Email', LINKS.mail)
+        ]
+      }
+    };
+
+    // ---------- 第二張：服務項目 ----------
+    const bubbleService = {
+      type: 'bubble',
+      size: 'mega',
+      styles: {
+        body: { backgroundColor: CARD },
+        footer: { backgroundColor: CARD }
+      },
+      hero: {
+        type: 'image',
+        url: BASE + '/img/hero-office.jpg',
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover'
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        paddingAll: '20px',
+        spacing: 'sm',
+        contents: [
+          { type: 'text', text: '一站式辦公服務', size: 'lg', weight: 'bold', color: BRASS, align: 'center' },
+          { type: 'text', text: '空間　登記　記帳　設立　一次搞定', size: 'xs', color: DIM, align: 'center', wrap: true, margin: 'sm' },
+          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              bullet('小型辦公室租賃　2-5 人獨立空間'),
+              bullet('商辦地址租賃　公司營業登記'),
+              bullet('會議室租借　2-40 人場地'),
+              bullet('會計記帳報稅　駐點會計師'),
+              bullet('代辦公司設立　名稱預查到立案')
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        paddingAll: '16px',
+        contents: [
+          btn('預約參觀', LINKS.tel, true),
+          btn('LINE 洽詢', LINKS.line),
+          btnSoon('官方網站　即將上線')
+        ]
+      }
+    };
+
+    // ---------- 第三張：方案與價格 ----------
+    const bubblePlan = {
+      type: 'bubble',
+      size: 'mega',
+      styles: {
+        body: { backgroundColor: CARD },
+        footer: { backgroundColor: CARD }
+      },
+      hero: {
+        type: 'image',
+        url: BASE + '/img/hero-meeting.jpg',
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover'
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        paddingAll: '20px',
+        spacing: 'sm',
+        contents: [
+          { type: 'text', text: '方案一覽', size: 'lg', weight: 'bold', color: TEXT, align: 'center' },
+          { type: 'text', text: '以下為未稅價　實際依空間與需求報價', size: 'xxs', color: DIM, align: 'center', wrap: true, margin: 'sm' },
+          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              infoRow('小型辦公室', 'NT$15,000 - 22,000 / 月'),
+              infoRow('地址登記', 'NT$1,800 / 月'),
+              infoRow('會議室', 'NT$1,000 起 / 小時'),
+              infoRow('公司設立', 'NT$10,000 一次'),
+              infoRow('記帳報稅', 'NT$2,500 / 月')
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        paddingAll: '16px',
+        contents: [
+          btn('洽詢報價', LINKS.tel, true)
+        ]
+      }
+    };
+
+    // ---------- 第四張：據點 ----------
+    const bubbleLocation = {
+      type: 'bubble',
+      size: 'mega',
+      styles: {
+        body: { backgroundColor: CARD },
+        footer: { backgroundColor: CARD }
+      },
+      hero: {
+        type: 'image',
+        url: BASE + '/img/hero-building.jpg',
+        size: 'full',
+        aspectRatio: '20:13',
+        aspectMode: 'cover'
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        paddingAll: '20px',
+        spacing: 'sm',
+        contents: [
+          { type: 'text', text: '黃金門牌　優質地段', size: 'lg', weight: 'bold', color: BRASS, align: 'center' },
+          { type: 'text', text: '藝文特區與中路特區　捷運 G11 步行 3 分鐘', size: 'xxs', color: DIM, align: 'center', wrap: true, margin: 'sm' },
+          { type: 'separator', color: '#2B3A57', margin: 'lg' },
+          {
+            type: 'box',
+            layout: 'vertical',
+            margin: 'lg',
+            spacing: 'sm',
+            contents: [
+              infoRow('藝文館', '桃園市桃園區藝文一街 86-3 號 12 樓'),
+              infoRow('中路館', '桃園市桃園區正光路 423-9 號 3 樓'),
+              infoRow('電話', '03-302-0400')
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        paddingAll: '16px',
+        contents: [
+          btn('導航　藝文館', LINKS.mapArt, true),
+          btn('導航　中路館', LINKS.mapZhon),
+          btn('撥打總機', LINKS.telShop)
+        ]
+      }
+    };
+
+    const flexMessage = {
+      type: 'flex',
+      altText: '張立群 John｜寬憶行銷商務中心　電子名片',
+      contents: {
+        type: 'carousel',
+        contents: [bubbleProfile, bubbleService, bubblePlan, bubbleLocation]
+      }
+    };
+
+    // ---------- LIFF ----------
+    const btnShare = document.getElementById('btnShare');
+    const statusEl = document.getElementById('status');
+
+    function setStatus(msg, type) {
+      statusEl.textContent = msg || '';
+      statusEl.className = 'status' + (type ? ' ' + type : '');
+    }
+
+    async function main() {
+      try {
+        if (!LIFF_ID || LIFF_ID.includes('YOUR_LIFF')) {
+          setStatus('尚未設定 LIFF ID', 'error');
+          btnShare.textContent = '尚未設定 LIFF ID';
+          return;
+        }
+
+        setStatus('正在初始化 LIFF...');
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          setStatus('請先登入 LINE');
+          liff.login();
+          return;
+        }
+
+        if (!liff.isApiAvailable('shareTargetPicker')) {
+          setStatus('此環境不支援分享功能，請在 LINE App 內開啟', 'error');
+          btnShare.textContent = '請在 LINE 中開啟';
+          return;
+        }
+
+        btnShare.disabled = false;
+        btnShare.textContent = '分享我的電子名片';
+        setStatus('');
+      } catch (err) {
+        setStatus('LIFF 初始化失敗: ' + err.message, 'error');
+        btnShare.textContent = '初始化失敗';
+      }
+    }
+
+    btnShare.addEventListener('click', async () => {
+      try {
+        btnShare.disabled = true;
+        setStatus('開啟分享清單...');
+        const result = await liff.shareTargetPicker([flexMessage]);
+        if (result) {
+          setStatus('名片已送出', 'success');
+        } else {
+          setStatus('已取消分享');
+        }
+      } catch (err) {
+        setStatus('分享失敗: ' + err.message, 'error');
+      } finally {
+        btnShare.disabled = false;
+        btnShare.textContent = '分享我的電子名片';
+      }
+    });
+
+    main();
+  </script>
+</body>
+</html>
